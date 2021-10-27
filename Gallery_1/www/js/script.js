@@ -34,7 +34,30 @@ document.addEventListener("submit",(e)=>{
 document.addEventListener("DOMContentLoaded",()=>{
     fetch("/api/picture")
     .then(r=>r.text())
-    .then(console.log)
+    .then(t => {
+        console.log(t);
+        const j = JSON.parse(t);
+        const cont = document.getElementById("gallery-container");
+        for( let p of j ){
+            /*
+            const div = document.createElement("div");
+
+            const img = document.createElement("img");
+            img.src="/pictures/" + p.filename;
+            img.style["max-width"]="150px";
+
+            div.appendChild(img);
+            cont.appendChild(div);
+            */
+             
+            cont.innerHTML +=`<div>` + `<h3>${ p.title}</h3>`
+            +`<img src="../pictures/${ p.filename}">`
+            + `<label>${ p.description}</label>`
+            +`<label>Date of upload :${ p.upload_DT}</label>`
+            + `</div>`;
+
+        }
+    })
 });
 /*
     В случае удачной загрузки изображения вывести (добавить на страницу)

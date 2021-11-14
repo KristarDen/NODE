@@ -1,12 +1,18 @@
 body {
-    background-color: moccasin;
+    background-color: #34495e;
     margin: 0;
     padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 .add-image-form {
-    border: 2px solid gray;
+    border: 2px outset #e74c3c;
+    background-color: #ff7979;
     display: inline-block;
     padding: 5px;
+    display: flex;
+    flex-direction: column;
 }
 .add-image-form cite {
     font-variant: small-caps;
@@ -20,8 +26,9 @@ body {
     width: 100px;
 }
 .picture-item {
-    border: 2px solid #777;
-    box-shadow: 5px 5px 3px #999;
+    background-color: #95a5a6;
+    border: 2px solid #3498db;
+    box-shadow: 3px 3px 3px #2980b9;
     display: inline-block;
     margin: 10px 20px;
     padding: 7px;
@@ -50,9 +57,15 @@ body {
     flex-direction: column;
 }
 .tool-buttons {
-    display: block;
+    display: flex;
+    width: fit-content;
+    align-items: stretch;
     clear: both;
     text-align: right;
+}
+.tool-comments {
+    display: flex;
+    align-self: right;
 }
 .tool-buttons span {
     background-image: url(../images/btns.png) ;
@@ -64,8 +77,47 @@ body {
     opacity: .5;
     width: 30px;
 }
+.picture-addcomment{
+    background-image: url(../images/send_comments.png);
+    background-size: cover;
+    cursor: pointer;
+    display: inline-block;
+    height: 30px;
+    margin: 3px;
+    opacity: .5;
+    width: 30px;
+}
+.picture-showcomment{
+    background-image: url(../images/show_comments.png);
+    background-size: cover;
+    cursor: pointer;
+    display: inline-block;
+    height: 30px;
+    margin: 3px;
+    opacity: .5;
+    width: 30px;
+}
+.picture-showcomment:hover{
+    opacity: 1.0;
+}
+.picture-addcomment:hover{
+    opacity: 1.0;
+}
+.comment-item{
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    margin: 5px;
+    border: 2px inset #27ae60;
+    background-color: #16a085;
+}
+
+
+.comment-item span{
+   text-align: left;
+}
 .tool-buttons span:hover {
-    opacity: 1;
+    opacity: 1.0;
 }
 .tb-delete {
     background-position: -50% 0;
@@ -81,12 +133,12 @@ body {
 }
 
 .user-block {
-    background-color: darkkhaki;
+    background-color: #7ed6df;
     padding: 7px 10px;
 }
 
 .user-block-auth {
-    border: 2px solid olive;
+    border: 2px solid #22a6b3;
 }
 .user-block-auth select {
     margin-left: 10vw;
@@ -100,4 +152,15 @@ body {
 .vote-total {
     text-align: center;
 }
-
+.vote-like{
+    color: #27ae60;
+}
+.vote-dislike{
+    color: #c0392b;
+}
+.vote-like :hover{
+    color: #1abc9c;
+}
+.vote-dislike :hover{
+    color: #e74c3c;
+}

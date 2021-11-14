@@ -21,35 +21,34 @@ module.exports = {
                 break ;
         }
     }
-} ;
+};
+
 
 function doGet(request, response) {
     
-  let pictures_id = JSON.parse(request.params.query.pictures_id);
-  let condition = " SELECT CAST(picture_id AS CHAR) picture_id, vote FROM votes WHERE";
-  for (let i = 0; i < pictures_id.length; i+=1) {
-    if (i == 0) {
-      condition += ` picture_id = ${pictures_id[i]}`;
-    } else {
-      condition += ` OR picture_id = ${pictures_id[i]}`;
-    }
-  }
-  console.log(condition);
-  request.services.dbPool.query(condition, (err, results) => {
-    if (err) {
-      console.log(err);
-      response.errorHandlers.send500();
-    } else {
-      // console.log(results);
-      response.setHeader("Content-Type", "application/json");
-      console.log(results);
-      response.end(
-        JSON.stringify({
-          data: results,
-        })
-      );
-    }
-  });
+    let picture_id = JSON.parse(request.params.query.picture_id);
+    let condition = `SELECT CAST(picture_id AS CHAR) picture_id, comment, date_time FROM comments WHERE picture_id ="${picture_id}" ;`;
+    //let condition = `SELECT * FROM (SELECT CAST(picture_id AS CHAR) picture_id, comment, date_time , user_id JOIN users ON users.id = user_id) WHERE picture_id = ${picture_id};`;
+    console.log(condition);
+    request.services.dbPool.query(condition, (err, results) => {
+
+      if (err) {
+
+        console.log(err);
+        response.errorHandlers.send500();
+
+      } else {
+
+        response.setHeader("Content-Type", "application/json");
+        console.log(results);
+        response.end(
+          JSON.stringify({
+            data: results,
+          })
+        );
+      }
+    });
+    
 }
 
 function doPost( request, response ) {
@@ -59,17 +58,23 @@ function doPost( request, response ) {
         body =>{
             let userId = body.userId;
             let pictureId = body.pictureId;
-            let vote = body.vote
+            let text = body.text;
             global.services.dbPool.query(
-                `INSERT votes (picture_id , user_id, date_time, vote) VALUES ( ${pictureId} ,${userId} , CURRENT_TIMESTAMP, ${vote})`,
+                `INSERT comments (picture_id , user_id, comment, date_time) VALUES ( ${pictureId} ,${userId} , "${text}", CURRENT_TIMESTAMP)`,
                 err => { if( err ) console.log( err ) ; }
             ) ;
         
         }
     )
     
-    response.end( "POST Votes works !! user_id = , picture_id = , vote = " ) ;
+    response.end( "POST comments works !!" ) ;
 }
+
+function doPut( request, response ) { }
+
+function doDelete( request, response ) { }
+
+function doOptions( request, response ) { }
 
 function extractBody(request) {
     return new Promise((resolve, reject) => {
@@ -88,8 +93,3 @@ function extractBody(request) {
             })
     })
 }
-function doPut( request, response ) { }
-
-function doDelete( request, response ) { }
-
-function doOptions( request, response ) { }

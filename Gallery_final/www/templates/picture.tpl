@@ -14,5 +14,11 @@
             <span class="tb-edit"></span>
             <span class="tb-download"></span>
         </section>
+        <section class="tool-comments">
+            <span class="picture-addcomment"></span>
+            <span class="picture-showcomment"></span>
+        </section>
+        
+        <div class="comments"></div>
     </div>
 </div>
